@@ -1,9 +1,9 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { Employee } from './employee.entity';
 import { EmployeeService } from './employee.service';
-import { AuthGuard } from '@nestjs/passport';
 import { UseGuards } from '@nestjs/common';
-import { RolesGuard } from 'src/services/roles.guard';
+import { Roles, RolesGuard } from 'src/services/roles.guard';
+import { AuthGuard } from 'src/Services/auth.guard';
 
 @Resolver(() => Employee)
 export class EmployeeResolver {
@@ -26,7 +26,8 @@ export class EmployeeResolver {
   }
 
   @Mutation(() => Employee)
-  @UseGuards(AuthGuard, new RolesGuard(['admin']))
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('admin')
   async addEmployee(
     @Args('name') name: string,
     @Args('age', { type: () => Int }) age: number,
@@ -39,7 +40,7 @@ export class EmployeeResolver {
   }
 
   @Mutation(() => Employee)
-  @UseGuards(AuthGuard, new RolesGuard(['admin']))
+  @UseGuards(AuthGuard, RolesGuard)
   async updateEmployee(
     @Args('id', { type: () => Int }) id: number,
     @Args('attendance', { type: () => Int }) attendance: number,
