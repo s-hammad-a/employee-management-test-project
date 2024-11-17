@@ -28,8 +28,8 @@ Before setting up the project, make sure you have the following installed:
 
 ### 1. **Clone the Repository**
 ```bash
-git clone <repository-url>
-cd <project-directory>
+git clone https://github.com/s-hammad-a/employee-management-test-project
+cd employee-management-test-project
 ```
 
 ### 2. **Install Dependencies**
